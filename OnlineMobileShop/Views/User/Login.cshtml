@@ -1,0 +1,30 @@
+﻿@model OnlineMobileShop.Entity.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<table>
+    <tr>
+        <td>
+            @Html.Label("MailID")
+        </td>
+        <td>
+            @Html.TextBoxFor(Model => Model.mailID)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Password")
+        </td>
+        <td>
+            @Html.TextBoxFor(Model => Model.password)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="button" value="Summit" />
+        </td>
+    </tr>
+</table>
