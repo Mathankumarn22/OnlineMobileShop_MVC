@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "_Mobile";
+}
+
+<h2>_Mobile</h2>
+
+<tr>
+    <td> @Model.MobileID</td>
+    <td> @Model.Brand</td>
+    <td>@Model.Model</td>
+    <td>@Model.Battery</td>
+    <td> @Model.Price</td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MobileID })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.MobileID })
+    </td>
+</tr>

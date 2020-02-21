@@ -4,7 +4,7 @@
     ViewBag.Title = "DisplayDetails";
 }
 @Html.ActionLink("Add new details", "Create")
-<h2>TempDisplayDetails</h2>
+
 
 <head>
     <style>
@@ -15,7 +15,7 @@
     </style>
 </head>
 
-<h2>MobileDetails</h2>
+
 <table>
     <tr>
         <td>Brand </td>
@@ -23,18 +23,8 @@
         <td>Battery </td>
         <td>Price </td>
     </tr>
-    @foreach (OnlineMobileShop.Entity.Mobile item in (List<OnlineMobileShop.Entity.Mobile>)TempData["mobile"])
+    @foreach (OnlineMobileShop.Entity.Mobile item in Model)
     {
-<tr>
-    <td> @item.MobileID</td>
-    <td> @item.Brand</td>
-    <td>@item.Model</td>
-    <td>@item.Battery</td>
-    <td> @item.Price</td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.MobileID })
-        @Html.ActionLink("Delete", "Delete", new { id = item.MobileID })
-    </td>
-</tr>
+        @Html.Partial("_Mobile",item)
     }
 </table>

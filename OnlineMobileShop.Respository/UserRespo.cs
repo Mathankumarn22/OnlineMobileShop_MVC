@@ -4,45 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineMobileShop.Entity;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace OnlineMobileShop.Respository
 {
     public class UserRespo
     {
-        public static List<User> userList = new List<User>();
+        public static List<Account> userList = new List<Account>();
         static UserRespo()
         {
-            userList.Add(new User { userID = 1, name = "Mathan", phoneNumber = 7845122356, mailID = "mathankumarn@gmail.com", password="mathan" });
-            userList.Add(new User { userID = 2, name = "Barathi", phoneNumber = 4564122356, mailID = "kumarn@gmail.com", password = "Barathi" });
-            userList.Add(new User { userID = 3, name = "Kannan", phoneNumber = 7863122356, mailID = "mathan@gmail.com", password = "Kannan" });
+            userList.Add(new Account { UserID = 1, Name = "Mathan", PhoneNumber = 7845122356, MailID = "mathankumarn@gmail.com", Password="mathan" });
+            userList.Add(new Account { UserID = 2, Name = "Barathi", PhoneNumber = 4564122356, MailID = "kumarn@gmail.com", Password = "Barathi" });
+            userList.Add(new Account { UserID = 3, Name = "Kannan", PhoneNumber = 7863122356, MailID = "mathan@gmail.com", Password = "Kannan" });
 
         }
-        public static IEnumerable<User> GetDetails()
+        public static IEnumerable<Account> GetDetails()
         {
             return userList;
         }
-        public static void Add(User user)
+        public static void Add(Account user)
         {
             userList.Add(user);
         }
         public static void Delete(int userID)
         {
-            User user = GetuserID(userID);
+            Account user = GetuserID(userID);
             if (user != null)
                 userList.Remove(user);
         }
-        public static void Update(User user)
+        public static void Update(Account user)
         {
-            User userValue = userList.Find(id => id.userID == user.userID);
-            userValue.userID = user.userID;
-            userValue.name = user.name;
-            userValue.phoneNumber = user.phoneNumber;
-            userValue.mailID = user.mailID;
+            Account userValue = userList.Find(id => id.UserID == user.UserID);
+            userValue.UserID = user.UserID;
+            userValue.Name = user.Name;
+            userValue.PhoneNumber = user.PhoneNumber;
+            userValue.MailID = user.MailID;
         }
-        public static User GetuserID(int userID)
+        public static Account GetuserID(int userID)
         {
-            return userList.Find(id => id.userID == userID);
+            return userList.Find(id => id.UserID == userID);
         }
-    
     }
 }

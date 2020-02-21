@@ -9,13 +9,15 @@ namespace OnlineMobileShop.Controllers
     public class MobileController : Controller
     {
         // GET: Mobile
+        MobileRespository repository = new MobileRespository();
         public ActionResult RunMaster()
         {
             return View();
         }
         public ActionResult MobileDetails()
         {
-            IEnumerable<Mobile> mobile = MobileRespository.GetDetails();
+            
+            IEnumerable<Mobile> mobile = repository.GetDetails();
             ViewBag.Mobile = mobile;
             ViewData["mobile"] = mobile;
             TempData["mobile"] = mobile;
@@ -23,8 +25,8 @@ namespace OnlineMobileShop.Controllers
         }
         public ActionResult DisplayDetails()
         {
-
-            return View();
+            IEnumerable<Mobile> mobilelist = repository.GetDetails();
+            return View(mobilelist);
         }
         public ActionResult Create()
         {
@@ -35,7 +37,7 @@ namespace OnlineMobileShop.Controllers
         {
             Mobile mobile = new Mobile();
             UpdateModel<Mobile>(mobile);
-            MobileRespository.Add(mobile);
+            repository.Add(mobile);
             TempData["Message"] = "Added";
             return RedirectToAction("MobileDetails");
         }

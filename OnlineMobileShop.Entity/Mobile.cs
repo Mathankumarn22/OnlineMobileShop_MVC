@@ -13,6 +13,8 @@ namespace OnlineMobileShop.Entity
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Battery { get; set; }
+        public int RAM { get; set; }
+        public int ROM { get; set; }
         public int Price { get; set; } 
     }
 }

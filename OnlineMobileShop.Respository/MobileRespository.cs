@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using OnlineMobileShop.Entity;
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 
 namespace OnlineMobileShop.Respository
 {
     public class MobileRespository
     {
         public static List<Mobile> mobilelist = new List<Entity.Mobile>();
-
+        string sqlConnection = MobileRespository.GetDBConnection();
         static MobileRespository()
         {
 
@@ -16,15 +19,34 @@ namespace OnlineMobileShop.Respository
 
             mobilelist.Add(new Mobile { MobileID = 3, Brand = "Oppo", Model = "f1", Battery = 5000, Price = 11000 });
         }
-        public static IEnumerable<Mobile> GetDetails()
+        public IEnumerable<Mobile> GetDetails()
         {
             return mobilelist;
         }
 
-        public static void Add(Mobile mobile)
+        public bool Add(Mobile mobile)
         {
-            mobilelist.Add(mobile);
-        }
+                using (SqlConnection myConnection = new SqlConnection(sqlConnection))
+                {
+                    myConnection.Open();
+                    string sql = "SP_InsertData";
+                    SqlCommand sqlCommand = new SqlCommand(sql, myConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Brand", mobile.Brand);
+                    sqlCommand.Parameters.AddWithValue("@Model", mobile.Model);
+                    sqlCommand.Parameters.AddWithValue("@Battery", mobile.Battery);
+                    sqlCommand.Parameters.AddWithValue("@RAM", mobile.RAM);
+                    sqlCommand.Parameters.AddWithValue("@ROM", mobile.ROM);
+                    sqlCommand.Parameters.AddWithValue("@Price", mobile.Price);
+                    int limit = sqlCommand.ExecuteNonQuery();
+                    if (limit >= 1)
+                    {
+                        return true;
+
+                    }
+                    return false;
+            }
+            }
         public static void Delete(int MobileID)
         {
             Mobile mobile = GetMobileID(MobileID);
@@ -44,6 +66,11 @@ namespace OnlineMobileShop.Respository
         public static Mobile GetMobileID(int MobileID)
         {
             return mobilelist.Find(id => id.MobileID == MobileID);
+        }
+        public static string GetDBConnection()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineMobileShop"].ConnectionString;
+            return connectionString;
         }
     }
 }
